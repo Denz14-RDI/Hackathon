@@ -1,0 +1,60 @@
+@model IEnumerable<DenzelDev.Models.Project>
+@{
+    ViewData["Title"] = "Projects Showcase";
+}
+
+<div class="py-4">
+    <h1 class="mb-4">Projects Showcase</h1>
+
+    <!-- Category Filter Controls -->
+    <div class="mb-4 d-flex gap-2 flex-wrap">
+        <a href="/projects" class="btn @(string.IsNullOrEmpty(ViewBag.SelectedCategory as string) ? "btn-dark" : "btn-outline-dark")">All Projects</a>
+        <a href="/projects?category=Full-Stack" class="btn @(ViewBag.SelectedCategory as string == "Full-Stack" ? "btn-dark" : "btn-outline-dark")">Full-Stack</a>
+        <a href="/projects?category=Backend" class="btn @(ViewBag.SelectedCategory as string == "Backend" ? "btn-dark" : "btn-outline-dark")">Backend</a>
+        <a href="/projects?category=Frontend" class="btn @(ViewBag.SelectedCategory as string == "Frontend" ? "btn-dark" : "btn-outline-dark")">Frontend</a>
+    </div>
+
+    <!-- Project List Grid -->
+    <div class="row row-cols-1 row-cols-md-2 g-4" id="projects-grid">
+        @if (Model == null || !Model.Any())
+        {
+            <div class="col-12 text-center text-muted py-5">
+                <p>No projects found in this category.</p>
+            </div>
+        }
+        else
+        {
+            foreach (var item in Model)
+            {
+                <div class="col">
+                    <div class="card h-100 shadow-sm border" id="project-card-@item.Id">
+                        @if (!string.IsNullOrEmpty(item.ImageUrl))
+                        {
+                            <img src="@item.ImageUrl" class="card-img-top" alt="@item.Title" style="height: 200px; object-fit: cover;">
+                        }
+                        <div class="card-body">
+                            <span class="badge bg-secondary mb-2">@item.Category</span>
+                            <h3 class="card-title h5">@item.Title</h3>
+                            <p class="card-text text-muted">@item.ShortDescription</p>
+                            
+                            <!-- Tags -->
+                            <div class="mb-3">
+                                @foreach (var tag in item.Tags.Split(',', StringSplitOptions.RemoveEmptyEntries))
+                                {
+                                    <span class="badge bg-light text-dark border me-1">@tag.Trim()</span>
+                                }
+                            </div>
+                        </div>
+                        <div class="card-footer bg-white border-top-0 d-flex justify-content-between align-items-center">
+                            <a href="/projects/@item.Slug" class="btn btn-sm btn-outline-dark" id="btn-view-project-@item.Id">Details</a>
+                            @if (!string.IsNullOrEmpty(item.GithubUrl))
+                            {
+                                <a href="@item.GithubUrl" target="_blank" class="text-muted"><i class="bi bi-github"></i> GitHub</a>
+                            }
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+    </div>
+</div>

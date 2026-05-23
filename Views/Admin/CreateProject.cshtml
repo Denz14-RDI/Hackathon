@@ -1,0 +1,98 @@
+@model DenzelDev.Models.Project
+@{
+    ViewData["Title"] = "Add Portfolio Project";
+}
+
+<div class="py-4">
+    <div class="mb-3">
+        <a href="/admin" class="btn btn-sm btn-outline-secondary">&larr; Back to Control Panel</a>
+    </div>
+
+    <div class="card shadow-sm border">
+        <div class="card-header bg-dark text-white py-3">
+            <h2 class="h5 mb-0">Add New Showcase Project</h2>
+        </div>
+        <div class="card-body p-4">
+            <form method="post" id="create-project-form">
+                @Html.AntiForgeryToken()
+                
+                @if (!ViewData.ModelState.IsValid)
+                {
+                    <div class="alert alert-danger p-2 small">
+                        <div asp-validation-summary="All" class="text-danger"></div>
+                    </div>
+                }
+
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="Title" class="form-label">Project Title *</label>
+                        <input asp-for="Title" class="form-control" placeholder="e.g. Minimalist Dev Portfolio" required>
+                        <span asp-validation-for="Title" class="text-danger small"></span>
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="Slug" class="form-label">URL Slug (leave blank to auto-generate)</label>
+                        <input asp-for="Slug" class="form-control" placeholder="e.g. my-custom-app">
+                        <span asp-validation-for="Slug" class="text-danger small"></span>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="Category" class="form-label">Category *</label>
+                        <select asp-for="Category" class="form-select" required>
+                            <option value="">-- Select Category --</option>
+                            <option value="Full-Stack">Full-Stack</option>
+                            <option value="Backend">Backend</option>
+                            <option value="Frontend">Frontend</option>
+                            <option value="Cloud/Devops">Cloud/Devops</option>
+                        </select>
+                        <span asp-validation-for="Category" class="text-danger small"></span>
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="Tags" class="form-label">Tech Stack Tags (comma separated) *</label>
+                        <input asp-for="Tags" class="form-control" placeholder="e.g. C#, ASP.NET Core, EF Core, Bootstrap" required>
+                        <span asp-validation-for="Tags" class="text-danger small"></span>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="ImageUrl" class="form-label">Banner Image URL</label>
+                    <input asp-for="ImageUrl" class="form-control" placeholder="e.g. https://images.unsplash.com/photo-...">
+                    <span asp-validation-for="ImageUrl" class="text-danger small"></span>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="GithubUrl" class="form-label">GitHub Repository Link</label>
+                        <input asp-for="GithubUrl" class="form-control" placeholder="e.g. https://github.com/username/repo">
+                        <span asp-validation-for="GithubUrl" class="text-danger small"></span>
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="LiveUrl" class="form-label">Live App Link</label>
+                        <input asp-for="LiveUrl" class="form-control" placeholder="e.g. https://demo.vercel.app">
+                        <span asp-validation-for="LiveUrl" class="text-danger small"></span>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="ShortDescription" class="form-label">Short Summary *</label>
+                    <textarea asp-for="ShortDescription" class="form-control" rows="2" placeholder="Write a brief 1-2 sentence overview..." required></textarea>
+                    <span asp-validation-for="ShortDescription" class="text-danger small"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="FullDescriptionMarkdown" class="form-label">Detailed Markdown Description *</label>
+                    <textarea asp-for="FullDescriptionMarkdown" class="form-control" rows="8" placeholder="# Enter project markdown rich text details here..." required></textarea>
+                    <span asp-validation-for="FullDescriptionMarkdown" class="text-danger small"></span>
+                </div>
+
+                <div class="d-grid mt-4">
+                    <button type="submit" class="btn btn-dark" id="btn-save-project">Save Showcase Project</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

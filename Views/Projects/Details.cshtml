@@ -1,0 +1,58 @@
+@model DenzelDev.Models.Project
+@{
+    ViewData["Title"] = Model.Title;
+}
+
+<div class="py-4">
+    <div class="mb-3">
+        <a href="/projects" class="btn btn-sm btn-outline-secondary" id="btn-back-projects">&larr; Back to Projects</a>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-8">
+            <h1 class="mb-3">@Model.Title</h1>
+            <div class="mb-4">
+                <span class="badge bg-secondary">@Model.Category</span>
+                <span class="text-muted ms-2">Published: @Model.CreatedAt.ToString("MMMM dd, yyyy")</span>
+            </div>
+
+            @if (!string.IsNullOrEmpty(Model.ImageUrl))
+            {
+                <img src="@Model.ImageUrl" class="img-fluid rounded mb-4 shadow" alt="@Model.Title" style="max-height: 450px; width: 100%; object-fit: cover;">
+            }
+
+            <!-- Render parsed Markdown HTML -->
+            <div class="project-markdown-content border-top pt-4">
+                @Html.Raw(ViewBag.HtmlContent)
+            </div>
+        </div>
+
+        <div class="col-lg-4">
+            <div class="card p-3 shadow-sm border mb-4">
+                <h4 class="h5 mb-3">Project Specs</h4>
+                <p><strong>Category:</strong> @Model.Category</p>
+                <p><strong>Short Description:</strong> @Model.ShortDescription</p>
+                
+                <h5 class="h6 mb-2">Technologies Used</h5>
+                <div class="mb-3">
+                    @foreach (var tag in Model.Tags.Split(',', StringSplitOptions.RemoveEmptyEntries))
+                    {
+                        <span class="badge bg-light text-dark border me-1 mb-1">@tag.Trim()</span>
+                    }
+                </div>
+
+                <!-- CTA Links -->
+                <div class="d-grid gap-2">
+                    @if (!string.IsNullOrEmpty(Model.LiveUrl))
+                    {
+                        <a href="@Model.LiveUrl" target="_blank" class="btn btn-dark" id="btn-live-project">View Live App &rarr;</a>
+                    }
+                    @if (!string.IsNullOrEmpty(Model.GithubUrl))
+                    {
+                        <a href="@Model.GithubUrl" target="_blank" class="btn btn-outline-dark" id="btn-repo-project">View Repository</a>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

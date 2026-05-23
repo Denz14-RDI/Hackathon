@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - DenzelDev Portfolio</title>
+    
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    
+    <!-- Local Assets -->
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/DenzelDev.styles.css" asp-append-version="true" />
+</head>
+<body>
+    <header class="sticky-top">
+        <nav class="navbar navbar-expand-md frosted-navbar py-3">
+            <div class="container">
+                <a class="navbar-brand d-flex align-items-center" asp-controller="Home" asp-action="Index">
+                    <span class="text-accent me-1">&lt;</span>DenzelDev<span class="text-accent ms-1">/&gt;</span>
+                </a>
+                <button class="navbar-toggler border-0 bg-transparent text-white" type="button" data-bs-toggle="collapse" data-bs-target="#portfolioNavbar" aria-controls="portfolioNavbar" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="bi bi-list fs-3 text-accent"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="portfolioNavbar">
+                    <ul class="navbar-nav ms-auto mb-2 mb-md-0 gap-3">
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="Home" asp-action="Index" id="nav-link-home">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="Projects" asp-action="Index" id="nav-link-projects">Projects</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="Blogs" asp-action="Index" id="nav-link-blogs">Blog</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="Events" asp-action="Index" id="nav-link-events"><i class="bi bi-calendar-check-fill"></i> Events App</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="Admin" asp-action="Index" id="nav-link-admin"><i class="bi bi-shield-lock-fill"></i> CMS</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="container min-vh-100">
+        <main role="main" class="pb-5">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top border-secondary-subtle py-4 text-center mt-5" style="background: rgba(18, 24, 36, 0.2);">
+        <div class="container">
+            <p class="mb-1 text-muted small">&copy; 2026 - DenzelDev Portfolio. Made with MVC ASP.NET Core & Bootstrap.</p>
+            <div class="d-flex justify-content-center gap-3 mt-2">
+                <a href="https://github.com/Denz14-RDI" target="_blank" class="text-muted small"><i class="bi bi-github"></i> GitHub</a>
+                <span class="text-muted small">&bull;</span>
+                <a href="https://linkedin.com" target="_blank" class="text-muted small"><i class="bi bi-linkedin"></i> LinkedIn</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,189 @@
+@{
+    ViewData["Title"] = "CMS Control Dashboard";
+    var projects = ViewBag.Projects as IEnumerable<DenzelDev.Models.Project> ?? new List<DenzelDev.Models.Project>();
+    var blogs = ViewBag.Blogs as IEnumerable<DenzelDev.Models.Blog> ?? new List<DenzelDev.Models.Blog>();
+    var messages = ViewBag.Messages as IEnumerable<DenzelDev.Models.ContactMessage> ?? new List<DenzelDev.Models.ContactMessage>();
+}
+
+<div class="py-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1>CMS Administration Control Panel</h1>
+        <a href="/admin/logout" class="btn btn-outline-danger" id="btn-admin-logout">Secure Sign Out</a>
+    </div>
+
+    <!-- Navigation Tabs -->
+    <ul class="nav nav-tabs mb-4" id="adminTabs" role="tablist">
+        <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="projects-tab" data-bs-toggle="tab" data-bs-target="#projects" type="button" role="tab" aria-controls="projects" aria-selected="true">Projects (@projects.Count())</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="blogs-tab" data-bs-toggle="tab" data-bs-target="#blogs" type="button" role="tab" aria-controls="blogs" aria-selected="false">Blogs (@blogs.Count())</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="inquiries-tab" data-bs-toggle="tab" data-bs-target="#inquiries" type="button" role="tab" aria-controls="inquiries" aria-selected="false">Inquiries (@messages.Count(m => !m.IsRead) Unread)</button>
+        </li>
+    </ul>
+
+    <!-- Tabs Content -->
+    <div class="tab-content" id="adminTabsContent">
+        <!-- Projects Tab -->
+        <div class="tab-pane fade show active" id="projects" role="tabpanel" aria-labelledby="projects-tab">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h2 class="h4 mb-0">Portfolio Projects</h2>
+                <a href="/admin/projects/create" class="btn btn-dark btn-sm" id="btn-create-project-trigger">Add New Project</a>
+            </div>
+            
+            <div class="table-responsive border rounded bg-white shadow-sm">
+                <table class="table table-hover align-middle mb-0" id="table-admin-projects">
+                    <thead class="table-light">
+                        <tr>
+                            <th style="width: 80px;">ID</th>
+                            <th>Title</th>
+                            <th>Slug</th>
+                            <th>Category</th>
+                            <th>Tags</th>
+                            <th style="width: 200px;" class="text-end">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (!projects.Any())
+                        {
+                            <tr>
+                                <td colspan="6" class="text-center text-muted py-4">No projects declared yet.</td>
+                            </tr>
+                        }
+                        else
+                        {
+                            foreach (var p in projects)
+                            {
+                                <tr>
+                                    <td>@p.Id</td>
+                                    <td><strong>@p.Title</strong></td>
+                                    <td><code>@p.Slug</code></td>
+                                    <td><span class="badge bg-secondary">@p.Category</span></td>
+                                    <td><small class="text-muted">@p.Tags</small></td>
+                                    <td class="text-end">
+                                        <div class="d-flex gap-2 justify-content-end">
+                                            <a href="/admin/projects/edit/@p.Id" class="btn btn-sm btn-outline-primary" id="btn-edit-project-@p.Id">Edit</a>
+                                            <form method="post" action="/admin/projects/delete/@p.Id" onsubmit="return confirm('Are you sure you want to delete this project?')" style="display:inline;">
+                                                @Html.AntiForgeryToken()
+                                                <button type="submit" class="btn btn-sm btn-outline-danger" id="btn-delete-project-@p.Id">Delete</button>
+                                            </form>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Blogs Tab -->
+        <div class="tab-pane fade" id="blogs" role="tabpanel" aria-labelledby="blogs-tab">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h2 class="h4 mb-0">Dynamic Articles</h2>
+                <a href="/admin/blogs/create" class="btn btn-dark btn-sm" id="btn-create-blog-trigger">Add New Article</a>
+            </div>
+
+            <div class="table-responsive border rounded bg-white shadow-sm">
+                <table class="table table-hover align-middle mb-0" id="table-admin-blogs">
+                    <thead class="table-light">
+                        <tr>
+                            <th style="width: 80px;">ID</th>
+                            <th>Title</th>
+                            <th>Slug</th>
+                            <th>Read Time</th>
+                            <th>Status</th>
+                            <th>Published Date</th>
+                            <th style="width: 200px;" class="text-end">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (!blogs.Any())
+                        {
+                            <tr>
+                                <td colspan="7" class="text-center text-muted py-4">No blogs authored yet.</td>
+                            </tr>
+                        }
+                        else
+                        {
+                            foreach (var b in blogs)
+                            {
+                                <tr>
+                                    <td>@b.Id</td>
+                                    <td><strong>@b.Title</strong></td>
+                                    <td><code>@b.Slug</code></td>
+                                    <td>@b.ReadTimeMinutes mins</td>
+                                    <td>
+                                        <span class="badge @(b.IsPublished ? "bg-success" : "bg-warning")">
+                                            @(b.IsPublished ? "Published" : "Draft")
+                                        </span>
+                                    </td>
+                                    <td>@b.PublishedDate.ToString("yyyy-MM-dd")</td>
+                                    <td class="text-end">
+                                        <div class="d-flex gap-2 justify-content-end">
+                                            <a href="/admin/blogs/edit/@b.Id" class="btn btn-sm btn-outline-primary" id="btn-edit-blog-@b.Id">Edit</a>
+                                            <form method="post" action="/admin/blogs/delete/@b.Id" onsubmit="return confirm('Are you sure you want to delete this blog post?')" style="display:inline;">
+                                                @Html.AntiForgeryToken()
+                                                <button type="submit" class="btn btn-sm btn-outline-danger" id="btn-delete-blog-@b.Id">Delete</button>
+                                            </form>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Inquiries Tab -->
+        <div class="tab-pane fade" id="inquiries" role="tabpanel" aria-labelledby="inquiries-tab">
+            <h2 class="h4 mb-3">Visitor Inbox Inquiries</h2>
+
+            <div class="row g-3" id="messages-list">
+                @if (!messages.Any())
+                {
+                    <div class="col-12 text-center text-muted py-4 border rounded bg-white">
+                        No contact messages logged yet.
+                    </div>
+                }
+                else
+                {
+                    foreach (var m in messages)
+                    {
+                        <div class="col-12">
+                            <div class="card shadow-sm border @(m.IsRead ? "bg-light opacity-75" : "border-primary")" id="message-card-@m.Id">
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-between align-items-center mb-2">
+                                        <h5 class="card-title h6 mb-0"><strong>@m.Subject</strong></h5>
+                                        <div class="d-flex gap-2 align-items-center">
+                                            <small class="text-muted">@m.CreatedAt.ToString("yyyy-MM-dd HH:mm")</small>
+                                            @if (!m.IsRead)
+                                            {
+                                                <span class="badge bg-primary">New</span>
+                                            }
+                                        </div>
+                                    </div>
+                                    <p class="mb-2"><strong>From:</strong> @m.Name (<a href="mailto:@m.Email">@m.Email</a>)</p>
+                                    <p class="card-text text-dark border-top pt-2" style="white-space: pre-wrap;">@m.Message</p>
+                                    
+                                    @if (!m.IsRead)
+                                    {
+                                        <div class="text-end mt-2">
+                                            <form method="post" action="/admin/messages/read/@m.Id" style="display:inline;">
+                                                @Html.AntiForgeryToken()
+                                                <button type="submit" class="btn btn-sm btn-outline-success" id="btn-read-msg-@m.Id">Mark as Resolved</button>
+                                            </form>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+    </div>
+</div>

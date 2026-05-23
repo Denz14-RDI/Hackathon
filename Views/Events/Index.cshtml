@@ -1,0 +1,99 @@
+@model IEnumerable<DenzelDev.Models.Event>
+@{
+    ViewData["Title"] = "EventList Dashboard";
+}
+
+<!-- Notification Alert -->
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show mt-3 border-0 shadow" role="alert" style="background: rgba(40, 167, 69, 0.2); color: #28a745;">
+        <i class="bi bi-check-circle-fill me-2"></i> @TempData["SuccessMessage"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
+<div class="py-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <span class="mono-tag">EventList Module</span>
+            <h1 class="mb-0">Events Coordination Portal</h1>
+        </div>
+        <a href="/events/create" class="btn-premium-solid text-decoration-none" id="btn-create-event-trigger">Create New Event</a>
+    </div>
+
+    <!-- Events Grid -->
+    <div class="row g-4" id="events-dashboard-grid">
+        @if (Model == null || !Model.Any())
+        {
+            <div class="col-12 text-center text-muted py-5 border rounded glass-card">
+                <p class="fs-5 mb-0">No active events found. Click "Create New Event" to get started!</p>
+            </div>
+        }
+        else
+        {
+            foreach (var item in Model)
+            {
+                // Calculations
+                var totalTasks = item.TaskItems.Count;
+                var completedTasks = item.TaskItems.Count(t => t.Status == "Completed");
+                var taskProgress = totalTasks > 0 ? (int)((double)completedTasks / totalTasks * 100) : 0;
+
+                var totalSponsorship = item.Budgets.Where(b => b.Type == "Sponsorship").Sum(b => b.Amount);
+                var totalExpense = item.Budgets.Where(b => b.Type == "Expense").Sum(b => b.Amount);
+                var netBalance = totalSponsorship - totalExpense;
+
+                <div class="col-md-6" id="event-card-@item.Id">
+                    <div class="glass-card h-100 glow-card d-flex flex-column">
+                        <div class="mb-3 d-flex justify-content-between align-items-start">
+                            <span class="mono-tag"><i class="bi bi-calendar-event"></i> @item.EventDate.ToString("yyyy-MM-dd")</span>
+                            <span class="badge bg-dark border text-accent border-secondary">@item.OrganizerName</span>
+                        </div>
+
+                        <h3 class="h4 text-white mb-2">@item.Title</h3>
+                        <p class="small text-muted mb-3 flex-grow-1">
+                            @(item.Description?.Length > 150 ? item.Description.Substring(0, 147) + "..." : item.Description ?? "No description provided.")
+                        </p>
+
+                        <!-- Live Financial Balance Tracker -->
+                        <div class="mb-3 p-3 rounded" style="background: rgba(11, 15, 25, 0.4); border: 1px solid var(--border-glass);">
+                            <div class="d-flex justify-content-between mb-1">
+                                <span class="small text-muted">Financial Health</span>
+                                <span class="small font-weight-bold @(netBalance >= 0 ? "text-success" : "text-danger")">
+                                    @(netBalance >= 0 ? "+" : "")@netBalance.ToString("C")
+                                </span>
+                            </div>
+                            <div class="d-flex justify-content-between small text-muted" style="font-size: 0.8rem;">
+                                <span>Sponsor: @totalSponsorship.ToString("C")</span>
+                                <span>Expense: @totalExpense.ToString("C")</span>
+                            </div>
+                        </div>
+
+                        <!-- Progress Bar Tasks -->
+                        <div class="mb-4">
+                            <div class="d-flex justify-content-between mb-1 small text-muted">
+                                <span>Milestones Progress</span>
+                                <span>@taskProgress% (@completedTasks/@totalTasks Tasks)</span>
+                            </div>
+                            <div class="progress bg-dark" style="height: 6px; border: 1px solid var(--border-glass);">
+                                <div class="progress-bar" role="progressbar" style="width: @taskProgress%; background-color: var(--accent);" aria-valuenow="@taskProgress" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                        </div>
+
+                        <!-- CTAs -->
+                        <div class="d-flex gap-2 justify-content-between mt-auto pt-3 border-top border-secondary-subtle">
+                            <a href="/events/@item.Id" class="btn-premium text-decoration-none py-2 px-3 small" id="btn-view-event-@item.Id">Open Coordinate Sheet</a>
+                            
+                            <div class="d-flex gap-2">
+                                <a href="/events/edit/@item.Id" class="btn btn-sm btn-outline-secondary d-flex align-items-center px-2" id="btn-edit-event-@item.Id"><i class="bi bi-pencil-square text-accent"></i></a>
+                                <form method="post" action="/events/delete/@item.Id" onsubmit="return confirm('Are you sure you want to delete this event and all its tasks/budgets?')" style="display:inline;">
+                                    @Html.AntiForgeryToken()
+                                    <button type="submit" class="btn btn-sm btn-outline-danger d-flex align-items-center px-2" id="btn-delete-event-@item.Id"><i class="bi bi-trash"></i></button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+    </div>
+</div>

@@ -1,0 +1,30 @@
+@model DenzelDev.Models.Blog
+@{
+    ViewData["Title"] = Model.Title;
+}
+
+<div class="py-4">
+    <div class="mb-3">
+        <a href="/blogs" class="btn btn-sm btn-outline-secondary" id="btn-back-blogs">&larr; Back to Blog</a>
+    </div>
+
+    <article class="mx-auto" style="max-width: 800px;">
+        <header class="mb-4">
+            <h1 class="mb-3">@Model.Title</h1>
+            <div class="text-muted d-flex gap-3 align-items-center mb-4">
+                <span>Published: @Model.PublishedDate.ToString("MMMM dd, yyyy")</span>
+                <span>&bull;</span>
+                <span>@Model.ReadTimeMinutes Min Read</span>
+            </div>
+            @if (!string.IsNullOrEmpty(Model.BannerImageUrl))
+            {
+                <img src="@Model.BannerImageUrl" class="img-fluid rounded shadow-sm mb-4" alt="@Model.Title" style="max-height: 400px; width: 100%; object-fit: cover;">
+            }
+        </header>
+
+        <!-- Render parsed Markdown HTML -->
+        <section class="blog-markdown-content border-top pt-4">
+            @Html.Raw(ViewBag.HtmlContent)
+        </section>
+    </article>
+</div>

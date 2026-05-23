@@ -1,0 +1,339 @@
+/* ----------------------------------------------------
+   DENZELDEV - PREMIUM DESIGN SYSTEM & UI SPECS
+   ---------------------------------------------------- */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@500;600;700;800;900&family=Fira+Code:wght@400;500&display=swap');
+
+:root {
+  /* Core Base Midnight Theme Colors */
+  --bg-base: hsl(222, 40%, 6%);         /* #0B0F19 - Deep Midnight Void */
+  --bg-surface: hsl(220, 30%, 10%);     /* #121824 - Slate Card Surface */
+  --bg-elevated: hsl(218, 25%, 15%);    /* #1C2333 - Elevated Glass Panel */
+
+  /* Typographic Contrast Colors */
+  --text-primary: hsl(210, 38%, 95%);   /* #EBF1F5 - Crisp Off-White */
+  --text-muted: hsl(215, 15%, 65%);     /* #97A2B0 - Silver Muted Gray */
+  --text-dark: hsl(217, 10%, 40%);      /* #5B6675 - Dark Steel Gray */
+
+  /* Cyber Mint Accent & Glow Values */
+  --accent: hsl(163, 100%, 70%);        /* #64FFDA - Electric Cyber Mint */
+  --accent-glow: rgba(100, 255, 218, 0.12);
+  --accent-glow-strong: rgba(100, 255, 218, 0.35);
+
+  /* Borders & Dividers */
+  --border-glass: rgba(255, 255, 255, 0.08);
+  --border-glass-hover: rgba(255, 255, 255, 0.16);
+
+  /* Fonts Selection */
+  --font-display: 'Outfit', sans-serif;
+  --font-body: 'Inter', sans-serif;
+  --font-mono: 'Fira Code', monospace;
+}
+
+/* ----------------------------------------------------
+   GLOBAL ELEMENTS OVERRIDES
+   ---------------------------------------------------- */
+body {
+  background-color: var(--bg-base) !important;
+  color: var(--text-primary) !important;
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+  line-height: 1.7;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  color: var(--text-primary);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+}
+
+p {
+  color: var(--text-muted);
+}
+
+a {
+  color: var(--accent);
+  transition: all 0.3s ease;
+}
+a:hover {
+  color: var(--text-primary);
+  text-shadow: 0 0 8px var(--accent-glow-strong);
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-base);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--bg-surface);
+  border-radius: 4px;
+  border: 1px solid var(--border-glass);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--bg-elevated);
+}
+
+/* ----------------------------------------------------
+   SIGNATURE DESIGN COMPONENTS
+   ---------------------------------------------------- */
+
+/* Navigation Frosted Glass Navbar */
+.frosted-navbar {
+  background: rgba(11, 15, 25, 0.75) !important;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border-glass) !important;
+  transition: all 0.3s ease;
+}
+.frosted-navbar .navbar-brand {
+  font-family: var(--font-display);
+  font-weight: 800;
+  color: var(--text-primary) !important;
+  letter-spacing: -0.05em;
+}
+.frosted-navbar .nav-link {
+  color: var(--text-muted) !important;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  font-size: 0.95rem;
+}
+.frosted-navbar .nav-link:hover, 
+.frosted-navbar .nav-link.active {
+  color: var(--accent) !important;
+}
+
+/* Glassmorphic Cards Shaders */
+.glass-card {
+  background: rgba(18, 24, 36, 0.45);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--border-glass) !important;
+  border-radius: 16px !important;
+  padding: 2.2rem;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 15px 35px -20px rgba(0, 0, 0, 0.8) !important;
+}
+.glass-card:hover {
+  transform: translateY(-6px);
+  border-color: var(--border-glass-hover) !important;
+  box-shadow: 0 25px 50px -25px rgba(100, 255, 218, 0.08) !important;
+}
+
+/* Cyber Accent Highlights */
+.text-accent {
+  color: var(--accent) !important;
+}
+
+.mono-tag {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--accent);
+  letter-spacing: 0.05em;
+  opacity: 0.85;
+}
+
+/* Premium Glow Cyber Buttons */
+.btn-premium {
+  background: transparent !important;
+  color: var(--accent) !important;
+  border: 1px solid var(--accent) !important;
+  padding: 0.8rem 1.8rem;
+  font-family: var(--font-display);
+  font-weight: 600;
+  border-radius: 8px !important;
+  letter-spacing: 0.05em;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  position: relative;
+  overflow: hidden;
+}
+.btn-premium:hover {
+  background: var(--accent-glow) !important;
+  box-shadow: 0 0 20px var(--accent-glow) !important;
+  color: var(--text-primary) !important;
+  transform: translateY(-2px);
+}
+
+.btn-premium-solid {
+  background: var(--accent) !important;
+  color: var(--bg-base) !important;
+  border: 1px solid var(--accent) !important;
+  padding: 0.8rem 1.8rem;
+  font-family: var(--font-display);
+  font-weight: 600;
+  border-radius: 8px !important;
+  letter-spacing: 0.05em;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  box-shadow: 0 5px 15px -5px var(--accent-glow-strong) !important;
+}
+.btn-premium-solid:hover {
+  box-shadow: 0 10px 25px -5px var(--accent-glow-strong) !important;
+  transform: translateY(-2px);
+}
+
+/* Custom Skill Badges */
+.skill-badge {
+  background: rgba(18, 24, 36, 0.6);
+  border: 1px solid var(--border-glass);
+  color: var(--text-primary);
+  border-radius: 30px;
+  padding: 0.5rem 1.2rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+.skill-badge:hover {
+  border-color: var(--accent);
+  background: var(--accent-glow);
+  transform: scale(1.05);
+}
+
+/* ----------------------------------------------------
+   TIMELINE LAYOUT COMPONENT
+   ---------------------------------------------------- */
+.timeline-wrapper {
+  position: relative;
+  padding: 2rem 0;
+}
+.timeline-line {
+  position: absolute;
+  left: 31px;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: linear-gradient(to bottom, var(--border-glass), var(--accent), var(--border-glass));
+}
+.timeline-item {
+  position: relative;
+  margin-bottom: 3rem;
+  padding-left: 70px;
+}
+.timeline-node {
+  position: absolute;
+  left: 20px;
+  top: 10px;
+  width: 24px;
+  height: 24px;
+  background: var(--bg-base);
+  border: 3px solid var(--accent);
+  border-radius: 50%;
+  z-index: 10;
+  transition: all 0.3s ease;
+}
+.timeline-item:hover .timeline-node {
+  box-shadow: 0 0 15px var(--accent);
+  background: var(--accent);
+}
+.timeline-date {
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  color: var(--accent);
+  margin-bottom: 0.5rem;
+}
+.timeline-content {
+  background: rgba(18, 24, 36, 0.45);
+  border: 1px solid var(--border-glass);
+  border-radius: 12px;
+  padding: 1.5rem;
+  transition: all 0.3s ease;
+}
+.timeline-content:hover {
+  border-color: rgba(100, 255, 218, 0.3);
+}
+
+/* ----------------------------------------------------
+   MICRO-ANIMATIONS & INTERACTIVITY
+   ---------------------------------------------------- */
+
+/* Typing Text Cursor Animation */
+.cursor-typing::after {
+  content: '|';
+  animation: blink 1s step-end infinite;
+  color: var(--accent);
+}
+@keyframes blink {
+  from, to { color: transparent }
+  50% { color: var(--accent) }
+}
+
+/* Glow Borders */
+.glow-card {
+  position: relative;
+  overflow: hidden;
+}
+.glow-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(to bottom right, var(--accent), transparent, transparent);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+/* Minimalist Form Inputs */
+.minimalist-input {
+  background: rgba(11, 15, 25, 0.5) !important;
+  border: 1px solid var(--border-glass) !important;
+  color: var(--text-primary) !important;
+  border-radius: 8px !important;
+  padding: 0.8rem 1rem !important;
+  transition: all 0.3s ease !important;
+}
+.minimalist-input:focus {
+  border-color: var(--accent) !important;
+  box-shadow: 0 0 10px var(--accent-glow) !important;
+  background: rgba(18, 24, 36, 0.6) !important;
+}
+
+/* Markdown parsing typography overrides */
+.project-markdown-content, .blog-markdown-content {
+  color: var(--text-muted);
+}
+.project-markdown-content h1, .blog-markdown-content h1,
+.project-markdown-content h2, .blog-markdown-content h2,
+.project-markdown-content h3, .blog-markdown-content h3 {
+  margin-top: 1.8rem;
+  margin-bottom: 1rem;
+  color: var(--text-primary);
+  letter-spacing: -0.02em;
+}
+.project-markdown-content code, .blog-markdown-content code {
+  font-family: var(--font-mono);
+  background: rgba(18, 24, 36, 0.8);
+  padding: 0.2rem 0.4rem;
+  border-radius: 4px;
+  color: var(--accent);
+  font-size: 0.9em;
+}
+.project-markdown-content pre, .blog-markdown-content pre {
+  background: rgba(18, 24, 36, 0.8);
+  border: 1px solid var(--border-glass);
+  padding: 1.2rem;
+  border-radius: 8px;
+  overflow-x: auto;
+}
+.project-markdown-content pre code, .blog-markdown-content pre code {
+  padding: 0;
+  background: transparent;
+  color: var(--text-primary);
+}
+.project-markdown-content ul, .blog-markdown-content ul,
+.project-markdown-content ol, .blog-markdown-content ol {
+  padding-left: 1.5rem;
+  margin-bottom: 1.2rem;
+}
+.project-markdown-content li, .blog-markdown-content li {
+  margin-bottom: 0.5rem;
+}
