@@ -1,0 +1,28 @@
+-- Core Event Registry
+CREATE TABLE Events (
+    EventId INT IDENTITY(1,1) PRIMARY KEY,
+    Title NVARCHAR(150) NOT NULL,
+    Description NVARCHAR(MAX),
+    EventDate DATETIME NOT NULL,
+    Location NVARCHAR(150),
+    OrganizerName NVARCHAR(100) NOT NULL
+);
+
+-- Financial Sheet Ledger
+CREATE TABLE Budgets (
+    BudgetId INT IDENTITY(1,1) PRIMARY KEY,
+    EventId INT FOREIGN KEY REFERENCES Events(EventId) ON DELETE CASCADE,
+    ItemName NVARCHAR(150) NOT NULL,
+    Type NVARCHAR(50) CHECK (Type IN ('Sponsorship', 'Expense')),
+    Amount DECIMAL(18,2) NOT NULL
+);
+
+-- Operational Milestones Matrix
+CREATE TABLE Tasks (
+    TaskId INT IDENTITY(1,1) PRIMARY KEY,
+    EventId INT FOREIGN KEY REFERENCES Events(EventId) ON DELETE CASCADE,
+    TaskName NVARCHAR(255) NOT NULL,
+    AssignedTo NVARCHAR(100),
+    Status NVARCHAR(50) CHECK (Status IN ('Pending', 'In Progress', 'Completed')),
+    DueDate DATETIME
+);
