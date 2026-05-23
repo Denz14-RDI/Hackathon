@@ -1,4 +1,4 @@
-# Event Management System (ClubEvent Pro)
+# Event Management System (EventList)
 
 An enterprise-grade, web-based planning platform tailored for student councils, academic organizations, and campus clubs. Built utilizing the strict Passive View **Model-View-Presenter (MVP)** architectural pattern, this lightweight system maximizes data consistency and UI responsiveness without relying on bloated dependency tracking or heavy ORM systems.
 
