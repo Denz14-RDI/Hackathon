@@ -1,17 +1,17 @@
 @model DenzelDev.Models.Event
 @{
-    ViewData["Title"] = "Create Coordination Event";
+    ViewData["Title"] = "Schedule Event";
 }
 
 <div class="py-4">
     <div class="mb-3">
-        <a href="/events" class="btn btn-sm btn-outline-secondary">&larr; Back to Dashboard</a>
+        <a href="/" class="btn btn-sm btn-outline-secondary">&larr; Back to Dashboard</a>
     </div>
 
     <div class="card shadow-sm border glass-card">
         <div class="card-header bg-transparent border-bottom border-secondary pb-3">
-            <span class="mono-tag">EventList Module</span>
-            <h2 class="h3 text-white mb-0 mt-1">Schedule New Coordination Event</h2>
+            <span class="mono-tag">EventList System</span>
+            <h2 class="h3 text-white mb-0 mt-1">Schedule New Event</h2>
         </div>
         <div class="card-body pt-4 px-0">
             <form method="post" id="create-event-form">
@@ -32,7 +32,7 @@
 
                 <div class="row">
                     <div class="col-md-6 mb-3">
-                        <label asp-for="OrganizerName" class="form-label text-white">Organizer Unit / Lead Name *</label>
+                        <label asp-for="OrganizerName" class="form-label text-white">Organizer / Student Council Lead *</label>
                         <input asp-for="OrganizerName" class="form-control minimalist-input" placeholder="e.g. Student Council" required>
                         <span asp-validation-for="OrganizerName" class="text-danger small"></span>
                     </div>

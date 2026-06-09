@@ -8,15 +8,15 @@ namespace DenzelDev.Controllers
 {
     public class EventsController : Controller
     {
-        private readonly IPortfolioRepository _repository;
+        private readonly IEventRepository _repository;
 
-        public EventsController(IPortfolioRepository repository)
+        public EventsController(IEventRepository repository)
         {
             _repository = repository;
         }
 
         [HttpGet]
-        [Route("events")]
+        [Route("")]
         public async Task<IActionResult> Index()
         {
             var events = await _repository.GetAllEventsAsync();
@@ -24,7 +24,7 @@ namespace DenzelDev.Controllers
         }
 
         [HttpGet]
-        [Route("events/{id}")]
+        [Route("details/{id}")]
         public async Task<IActionResult> Details(int id)
         {
             var ev = await _repository.GetEventByIdAsync(id);
@@ -36,7 +36,7 @@ namespace DenzelDev.Controllers
         }
 
         [HttpGet]
-        [Route("events/create")]
+        [Route("create")]
         public IActionResult Create()
         {
             return View(new Event());
@@ -44,20 +44,20 @@ namespace DenzelDev.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Route("events/create")]
+        [Route("create")]
         public async Task<IActionResult> Create(Event ev)
         {
             if (ModelState.IsValid)
             {
                 await _repository.AddEventAsync(ev);
-                TempData["SuccessMessage"] = "Event created successfully!";
+                TempData["SuccessMessage"] = "Event scheduled successfully!";
                 return RedirectToAction(nameof(Index));
             }
             return View(ev);
         }
 
         [HttpGet]
-        [Route("events/edit/{id}")]
+        [Route("edit/{id}")]
         public async Task<IActionResult> Edit(int id)
         {
             var ev = await _repository.GetEventByIdAsync(id);
@@ -70,7 +70,7 @@ namespace DenzelDev.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Route("events/edit/{id}")]
+        [Route("edit/{id}")]
         public async Task<IActionResult> Edit(int id, Event ev)
         {
             if (id != ev.Id)
@@ -89,7 +89,7 @@ namespace DenzelDev.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Route("events/delete/{id}")]
+        [Route("delete/{id}")]
         public async Task<IActionResult> Delete(int id)
         {
             await _repository.DeleteEventAsync(id);
@@ -100,7 +100,7 @@ namespace DenzelDev.Controllers
         #region Inline Budgets Actions
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Route("events/{eventId}/budget/add")]
+        [Route("details/{eventId}/budget/add")]
         public async Task<IActionResult> AddBudget(int eventId, Budget budget)
         {
             if (ModelState.IsValid)
@@ -118,7 +118,7 @@ namespace DenzelDev.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Route("events/{eventId}/budget/delete/{id}")]
+        [Route("details/{eventId}/budget/delete/{id}")]
         public async Task<IActionResult> DeleteBudget(int eventId, int id)
         {
             await _repository.DeleteBudgetAsync(id);
@@ -130,7 +130,7 @@ namespace DenzelDev.Controllers
         #region Inline Tasks Actions
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Route("events/{eventId}/task/add")]
+        [Route("details/{eventId}/task/add")]
         public async Task<IActionResult> AddTask(int eventId, TaskItem taskItem)
         {
             if (ModelState.IsValid)
@@ -148,7 +148,7 @@ namespace DenzelDev.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Route("events/{eventId}/task/delete/{id}")]
+        [Route("details/{eventId}/task/delete/{id}")]
         public async Task<IActionResult> DeleteTask(int eventId, int id)
         {
             await _repository.DeleteTaskItemAsync(id);
@@ -158,7 +158,7 @@ namespace DenzelDev.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Route("events/{eventId}/task/status/{id}")]
+        [Route("details/{eventId}/task/status/{id}")]
         public async Task<IActionResult> UpdateTaskStatus(int eventId, int id, string status)
         {
             if (!string.IsNullOrEmpty(status))
@@ -169,5 +169,13 @@ namespace DenzelDev.Controllers
             return RedirectToAction(nameof(Details), new { id = eventId });
         }
         #endregion
+
+        [HttpGet]
+        [Route("error")]
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        public IActionResult Error()
+        {
+            return View(new ErrorViewModel { RequestId = System.Diagnostics.Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
     }
 }

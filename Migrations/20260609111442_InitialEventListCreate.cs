@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace DenzelDev.Migrations
 {
     /// <inheritdoc />
-    public partial class AddEventManagementSystem : Migration
+    public partial class InitialEventListCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -78,7 +78,12 @@ namespace DenzelDev.Migrations
             migrationBuilder.InsertData(
                 table: "Events",
                 columns: new[] { "Id", "Description", "EventDate", "Location", "OrganizerName", "Title" },
-                values: new object[] { 1, "A premier 48-hour programming league challenge designed to assemble software engineering student teams to build dynamic C# applications.", new DateTime(2026, 6, 20, 0, 0, 0, 0, DateTimeKind.Utc), "Manila Tech Dome Complex", "Student Alliance Executive Council", "National Developer Hackathon 2026" });
+                values: new object[,]
+                {
+                    { 1, "A premier 48-hour programming league challenge designed to assemble software engineering student teams to build dynamic C# applications.", new DateTime(2026, 6, 20, 0, 0, 0, 0, DateTimeKind.Utc), "Manila Tech Dome Complex", "Student Alliance Executive Council", "National Developer Hackathon 2026" },
+                    { 2, "Annual convention showcasing student robotics research, machine learning modules, and expert-led neural network workshops.", new DateTime(2026, 7, 15, 0, 0, 0, 0, DateTimeKind.Utc), "Quezon Science Hall", "Robotics & AI Student Chapter", "AI & Robotics Tech Summit" },
+                    { 3, "Leadership training conference focused on budget allocations, project delegation, and campus organization lifecycle management.", new DateTime(2026, 8, 5, 0, 0, 0, 0, DateTimeKind.Utc), "Campus Audio Visual Room", "Office of Student Affairs", "Student Council Leadership Seminar" }
+                });
 
             migrationBuilder.InsertData(
                 table: "Budgets",
@@ -87,7 +92,12 @@ namespace DenzelDev.Migrations
                 {
                     { 1, 5000.00m, 1, "Corporate Sponsorships", "Sponsorship" },
                     { 2, 600.00m, 1, "Cloud Servers Provisioning", "Expense" },
-                    { 3, 1800.00m, 1, "Physical Promos & Catering", "Expense" }
+                    { 3, 1800.00m, 1, "Physical Promos & Catering", "Expense" },
+                    { 4, 3500.00m, 2, "University Grant Funding", "Sponsorship" },
+                    { 5, 1200.00m, 2, "Sensor Kits and Arduino Boards", "Expense" },
+                    { 6, 800.00m, 2, "Keynote Speaker Honorarium", "Expense" },
+                    { 7, 1500.00m, 3, "SAEC Budget Allocation", "Sponsorship" },
+                    { 8, 350.00m, 3, "Seminar Notebooks & Badges", "Expense" }
                 });
 
             migrationBuilder.InsertData(
@@ -97,7 +107,10 @@ namespace DenzelDev.Migrations
                 {
                     { 1, "Denzel Dev", new DateTime(2026, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc), 1, "Completed", "Provision deployment proxy bridges" },
                     { 2, "Pres. Alex", new DateTime(2026, 6, 12, 0, 0, 0, 0, DateTimeKind.Utc), 1, "In Progress", "Coordinate judges panel" },
-                    { 3, "Graphics Team", new DateTime(2026, 6, 15, 0, 0, 0, 0, DateTimeKind.Utc), 1, "Pending", "Distribute promotional details" }
+                    { 3, "Graphics Team", new DateTime(2026, 6, 15, 0, 0, 0, 0, DateTimeKind.Utc), 1, "Pending", "Distribute promotional details" },
+                    { 4, "Engr. Clara", new DateTime(2026, 7, 2, 0, 0, 0, 0, DateTimeKind.Utc), 2, "Completed", "Purchase sensor microchips" },
+                    { 5, "Dr. Santos", new DateTime(2026, 7, 10, 0, 0, 0, 0, DateTimeKind.Utc), 2, "Pending", "Finalize keynote presentation" },
+                    { 6, "Sec. Mark", new DateTime(2026, 8, 1, 0, 0, 0, 0, DateTimeKind.Utc), 3, "In Progress", "Print leadership certificates" }
                 });
 
             migrationBuilder.CreateIndex(

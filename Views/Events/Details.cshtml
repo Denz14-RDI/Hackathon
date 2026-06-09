@@ -1,6 +1,6 @@
 @model DenzelDev.Models.Event
 @{
-    ViewData["Title"] = $"{Model.Title} Sheet";
+    ViewData["Title"] = $"{Model.Title} Details";
     
     // Financial sheet LEDGER calculations
     var totalSponsorship = Model.Budgets.Where(b => b.Type == "Sponsorship").Sum(b => b.Amount);
@@ -31,8 +31,8 @@
 
 <div class="py-4">
     <div class="mb-3 d-flex justify-content-between align-items-center">
-        <a href="/events" class="btn btn-sm btn-outline-secondary" id="btn-back-events">&larr; Back to Events Dashboard</a>
-        <a href="/events/edit/@Model.Id" class="btn btn-sm btn-outline-light" id="btn-edit-event-details"><i class="bi bi-pencil-square text-accent"></i> Edit Event Info</a>
+        <a href="/" class="btn btn-sm btn-outline-secondary" id="btn-back-events">&larr; Back to Events Dashboard</a>
+        <a href="/edit/@Model.Id" class="btn btn-sm btn-outline-light" id="btn-edit-event-details"><i class="bi bi-pencil-square text-accent"></i> Edit Event Info</a>
     </div>
 
     <!-- Header Stats Banner -->
@@ -109,7 +109,7 @@
                                             @b.Amount.ToString("N2")
                                         </td>
                                         <td class="text-end">
-                                            <form method="post" action="/events/@Model.Id/budget/delete/@b.Id" onsubmit="return confirm('Remove this budget ledger entry?')" style="display:inline;">
+                                            <form method="post" action="/details/@Model.Id/budget/delete/@b.Id" onsubmit="return confirm('Remove this budget ledger entry?')" style="display:inline;">
                                                 @Html.AntiForgeryToken()
                                                 <button type="submit" class="btn btn-sm btn-link text-danger p-0" id="btn-delete-budget-@b.Id"><i class="bi bi-x-circle-fill"></i></button>
                                             </form>
@@ -124,7 +124,7 @@
                 <!-- Add Budget Item Form -->
                 <div class="p-3 rounded border border-secondary-subtle" style="background: rgba(11, 15, 25, 0.4);">
                     <h4 class="h6 text-white mb-3">Add Ledger Transaction</h4>
-                    <form method="post" action="/events/@Model.Id/budget/add" id="add-budget-form">
+                    <form method="post" action="/details/@Model.Id/budget/add" id="add-budget-form">
                         @Html.AntiForgeryToken()
                         <div class="row g-2">
                             <div class="col-md-5">
@@ -182,7 +182,7 @@
                                         <td class="small text-muted" style="font-size: 0.8rem;">@t.DueDate.ToString("yyyy-MM-dd")</td>
                                         <td>
                                             <!-- Status Update Form select -->
-                                            <form method="post" action="/events/@Model.Id/task/status/@t.Id" style="display:inline;">
+                                            <form method="post" action="/details/@Model.Id/task/status/@t.Id" style="display:inline;">
                                                 @Html.AntiForgeryToken()
                                                 <select name="status" class="form-select form-select-sm minimalist-input border-0 py-0 px-2" onchange="this.form.submit()" style="font-size: 0.8rem; width: 110px;" id="select-task-status-@t.Id">
                                                     <option value="Pending" selected="@(t.Status == "Pending")">Pending</option>
@@ -192,7 +192,7 @@
                                             </form>
                                         </td>
                                         <td class="text-end">
-                                            <form method="post" action="/events/@Model.Id/task/delete/@t.Id" onsubmit="return confirm('Remove this milestone task?')" style="display:inline;">
+                                            <form method="post" action="/details/@Model.Id/task/delete/@t.Id" onsubmit="return confirm('Remove this milestone task?')" style="display:inline;">
                                                 @Html.AntiForgeryToken()
                                                 <button type="submit" class="btn btn-sm btn-link text-danger p-0" id="btn-delete-task-@t.Id"><i class="bi bi-x-circle-fill"></i></button>
                                             </form>
@@ -207,7 +207,7 @@
                 <!-- Add Task Item Form -->
                 <div class="p-3 rounded border border-secondary-subtle" style="background: rgba(11, 15, 25, 0.4);">
                     <h4 class="h6 text-white mb-3">Delegate New Milestone</h4>
-                    <form method="post" action="/events/@Model.Id/task/add" id="add-task-form">
+                    <form method="post" action="/details/@Model.Id/task/add" id="add-task-form">
                         @Html.AntiForgeryToken()
                         <div class="row g-2 mb-2">
                             <div class="col-md-7">
