@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using DenzelDev.Models;
+using EventManagementSystem.Models;
 
-namespace DenzelDev.Repositories
+namespace EventManagementSystem.Repositories
 {
     public interface IEventRepository
     {
@@ -23,3 +23,4 @@ namespace DenzelDev.Repositories
         Task UpdateTaskItemStatusAsync(int id, string status);
     }
 }
+

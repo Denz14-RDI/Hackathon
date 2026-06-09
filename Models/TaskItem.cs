@@ -2,7 +2,7 @@ using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace DenzelDev.Models
+namespace EventManagementSystem.Models
 {
     public class TaskItem
     {
@@ -32,3 +32,4 @@ namespace DenzelDev.Models
         public Event? Event { get; set; }
     }
 }
+

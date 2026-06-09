@@ -18,4 +18,5 @@ COPY --from=build-env /App/out .
 # Expose port and start MVC application
 EXPOSE 8080
 ENV ASPNETCORE_URLS=http://+:8080
-ENTRYPOINT ["dotnet", "DenzelDev.dll"]
+ENTRYPOINT ["dotnet", "EventManagementSystem.dll"]
+

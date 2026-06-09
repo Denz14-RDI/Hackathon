@@ -1,10 +1,10 @@
 using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using DenzelDev.Models;
-using DenzelDev.Repositories;
+using EventManagementSystem.Models;
+using EventManagementSystem.Repositories;
 
-namespace DenzelDev.Controllers
+namespace EventManagementSystem.Controllers
 {
     public class EventsController : Controller
     {
@@ -179,3 +179,4 @@ namespace DenzelDev.Controllers
         }
     }
 }
+

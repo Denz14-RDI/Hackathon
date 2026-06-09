@@ -2,10 +2,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using DenzelDev.Data;
-using DenzelDev.Models;
+using EventManagementSystem.Data;
+using EventManagementSystem.Models;
 
-namespace DenzelDev.Repositories
+namespace EventManagementSystem.Repositories
 {
     public class EventRepository : IEventRepository
     {
@@ -99,3 +99,4 @@ namespace DenzelDev.Repositories
         }
     }
 }
+

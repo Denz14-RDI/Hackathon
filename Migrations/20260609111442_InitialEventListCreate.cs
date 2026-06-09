@@ -1,11 +1,11 @@
-﻿using System;
+using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
 #pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
 
-namespace DenzelDev.Migrations
+namespace EventManagementSystem.Migrations
 {
     /// <inheritdoc />
     public partial class InitialEventListCreate : Migration
@@ -138,3 +138,4 @@ namespace DenzelDev.Migrations
         }
     }
 }
+

@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
-using DenzelDev.Data;
-using DenzelDev.Repositories;
+using EventManagementSystem.Data;
+using EventManagementSystem.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -58,3 +58,4 @@ app.MapControllerRoute(
     .WithStaticAssets();
 
 app.Run();
+

@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace DenzelDev.Models
+namespace EventManagementSystem.Models
 {
     public class Event
     {
@@ -31,3 +31,4 @@ namespace DenzelDev.Models
         public List<TaskItem> TaskItems { get; set; } = new List<TaskItem>();
     }
 }
+

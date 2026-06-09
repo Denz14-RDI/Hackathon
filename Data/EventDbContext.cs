@@ -1,8 +1,8 @@
 using System;
 using Microsoft.EntityFrameworkCore;
-using DenzelDev.Models;
+using EventManagementSystem.Models;
 
-namespace DenzelDev.Data
+namespace EventManagementSystem.Data
 {
     public class EventDbContext : DbContext
     {
@@ -96,3 +96,4 @@ namespace DenzelDev.Data
         }
     }
 }
+

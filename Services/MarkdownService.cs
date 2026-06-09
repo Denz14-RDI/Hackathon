@@ -1,6 +1,6 @@
 using Markdig;
 
-namespace DenzelDev.Services
+namespace EventManagementSystem.Services
 {
     public class MarkdownService : IMarkdownService
     {
@@ -23,3 +23,4 @@ namespace DenzelDev.Services
         }
     }
 }
+
